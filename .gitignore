@@ -17,6 +17,9 @@ tests/**/*.cpp
 # don't ignore Makefiles
 !**/Makefile
 
+# don't ignore LICENSEs
+!**/LICENSE
+
 # ignore files produced by compiler diagnostics (typically named errors.txt)
 *.txt
 
