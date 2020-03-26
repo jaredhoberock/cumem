@@ -8,8 +8,8 @@
 #    error "Either all of CUMEM_NAMESPACE, CUMEM_NAMESPACE_OPEN_BRACE, and CUMEM_NAMESPACE_CLOSE_BRACE must be defined, or none of them."
 #  endif
 
-#  define CUMEM_NAMESPACE cudex
-#  define CUMEM_NAMESPACE_OPEN_BRACE namespace cudex {
+#  define CUMEM_NAMESPACE cumem
+#  define CUMEM_NAMESPACE_OPEN_BRACE namespace cumem {
 #  define CUMEM_NAMESPACE_CLOSE_BRACE }
 #  define CUMEM_NAMESPACE_NEEDS_UNDEF
 
