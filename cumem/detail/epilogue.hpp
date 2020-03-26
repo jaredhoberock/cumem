@@ -27,18 +27,18 @@
 
 // note that this header file is special and does not use #pragma once
 
-#if REPO_INCLUDE_LEVEL == 1
+#if CUMEM_INCLUDE_LEVEL == 1
 
 // any time this header is #included in a nested fashion, this branch is processed
 
 // pop from the stack
-#pragma pop_macro("REPO_INCLUDE_LEVEL")
+#pragma pop_macro("CUMEM_INCLUDE_LEVEL")
 
 #else
 
 // the final time this header is processed, this branch is taken
 
-#undef REPO_INCLUDE_LEVEL
+#undef CUMEM_INCLUDE_LEVEL
 
 // include preprocessor headers
 

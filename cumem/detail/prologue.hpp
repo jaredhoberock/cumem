@@ -27,13 +27,13 @@
 
 // note that this header file is special and does not use #pragma once
 
-#ifndef REPO_INCLUDE_LEVEL
+#ifndef CUMEM_INCLUDE_LEVEL
 
 // the first time this header is #included, this branch is processed
 
 // this definition communicates that the stack is empty
 // and that these macros should be undefined by epilogue.hpp
-#define REPO_INCLUDE_LEVEL 0
+#define CUMEM_INCLUDE_LEVEL 0
 
 // include preprocessor headers
 #include "preprocessor.hpp"
@@ -44,8 +44,8 @@
 
 // this push to the stack communicates with epilogue.hpp
 // that these macros are not ready to be undefined.
-#pragma push_macro("REPO_INCLUDE_LEVEL")
-#define REPO_INCLUDE_LEVEL 1
+#pragma push_macro("CUMEM_INCLUDE_LEVEL")
+#define CUMEM_INCLUDE_LEVEL 1
 
 #endif
 
