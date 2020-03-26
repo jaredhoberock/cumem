@@ -36,6 +36,14 @@
 CUMEM_NAMESPACE_OPEN_BRACE
 
 
+// cached_resource is a memory resource adaptor that maintains a cache of free
+// allocations. Calls to allocate draw from this cache first before requesting
+// fresh allocations from its base resource. When fresh allocations are
+// expensive (as in the case of cudaMalloc), this caching scheme may result in
+// improved memory allocation performance.
+//
+// XXX In principle, cached_resource could be a __host__ __device__ type,
+// but we would need to implement its cache using a GPU-friendly key/value store.
 template<class MemoryResource>
 class cached_resource : private MemoryResource // inherit from MemoryResource for the empty base class optimization
 {
