@@ -9,9 +9,12 @@ void test_allocate()
 
   int* ptr = static_cast<int*>(r.allocate(sizeof(int)));
 
-  int device = -1;
-  assert(cudaMemRangeGetAttribute(&device, sizeof(int), cudaMemRangeAttributePreferredLocation, ptr, sizeof(int)));
-  assert(device == r.device());
+  cudaPointerAttributes attr{};
+  assert(cudaPointerGetAttributes(&attr, ptr) == cudaSuccess);
+  assert(attr.type == cudaMemoryTypeManaged);
+  assert(attr.device == r.device());
+  assert(attr.devicePointer == ptr);
+  assert(attr.hostPointer == ptr);
 
   int expected = 13;
   *ptr = expected;
@@ -33,7 +36,13 @@ void test_comparison()
   assert(r0 == r0);
   assert(!(r0 != r0));
 
-  // different devices compare different
+  // resources pointing to same device compare same
+  cumem::managed_resource other_r0{0};
+  assert(r0.is_equal(other_r0));
+  assert(r0 == other_r0);
+  assert(!(r0 != other_r0));
+
+  // resources pointing to different devices compare different
   assert(!r0.is_equal(r1));
   assert(r0 != r1);
 }
@@ -78,7 +87,9 @@ void test_throw_on_failure()
 
 void test_managed_resource()
 {
+  test_allocate();
   test_comparison();
+  test_copy_construction();
   test_device();
   test_throw_on_failure();
 }
