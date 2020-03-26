@@ -29,6 +29,7 @@
 #include "../detail/prologue.hpp"
 
 #include <map>
+#include <mutex>
 #include <type_traits>
 
 
@@ -52,10 +53,10 @@ class cached_resource : private MemoryResource // inherit from MemoryResource fo
 
     cached_resource(const cached_resource&) = delete;
 
-    cached_resource(cached_resource&&) = default;
-
     ~cached_resource() noexcept
     {
+      std::lock_guard<std::mutex> lock(mutex_);
+
       deallocate_free_blocks();
 
       // note that we do not deallocate allocated blocks
@@ -74,6 +75,8 @@ class cached_resource : private MemoryResource // inherit from MemoryResource fo
 
     void* allocate(size_t num_bytes)
     {
+      std::lock_guard<std::mutex> lock(mutex_);
+
       void* ptr = nullptr;
 
       // XXX this algorithm searches for a block of exactly the right size, but
@@ -101,6 +104,8 @@ class cached_resource : private MemoryResource // inherit from MemoryResource fo
 
     void deallocate(void* ptr, size_t)
     {
+      std::lock_guard<std::mutex> lock(mutex_);
+
       // find the allocation in the allocated blocks map
       auto found = allocated_blocks_.find(ptr);
 
@@ -127,6 +132,8 @@ class cached_resource : private MemoryResource // inherit from MemoryResource fo
     }
 
   private:
+    std::mutex mutex_;
+
     // a map from block sizes to free blocks of that size
     std::multimap<std::size_t, void*> free_blocks_;
 

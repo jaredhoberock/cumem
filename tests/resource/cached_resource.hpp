@@ -54,20 +54,6 @@ void test_comparison()
 }
 
 
-void test_move_construction()
-{
-  using cached_resource = cumem::cached_resource<cumem::managed_resource>;
-
-  cached_resource r0;
-
-  void* ptr = r0.allocate(1);
-
-  cached_resource moved_r0 = std::move(r0);
-
-  moved_r0.deallocate(ptr, 1);
-}
-
-
 void test_throw_on_failure()
 {
   using cached_resource = cumem::cached_resource<cumem::managed_resource>;
@@ -92,7 +78,6 @@ void test_cached_resource()
 {
   test_allocate();
   test_comparison();
-  test_move_construction();
   test_throw_on_failure();
 }
 
