@@ -25,7 +25,7 @@
 
 #  define CUMEM_REQUIRES_IMPL(unique_name, ...) bool unique_name = true, typename std::enable_if<(unique_name and __VA_ARGS__)>::type* = nullptr
 
-#  define CUMEM_REQUIRES(...) CUMEM_REQUIRES_IMPL(CUDEX_MAKE_UNIQUE(__deduced_true), __VA_ARGS__)
+#  define CUMEM_REQUIRES(...) CUMEM_REQUIRES_IMPL(CUMEM_MAKE_UNIQUE(__deduced_true), __VA_ARGS__)
 
 #elif defined(CUMEM_REQUIRES)
 
