@@ -100,6 +100,7 @@ class allocator_adaptor : private MemoryResource // inherit from MemoryResource 
       return *this;
     }
 
+    CUMEM_EXEC_CHECK_DISABLE
     CUMEM_ANNOTATION
     bool operator==(const allocator_adaptor& other) const
     {
