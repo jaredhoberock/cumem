@@ -28,11 +28,10 @@
 
 #include "../detail/prologue.hpp"
 
-#include "resource/cached_resource.hpp"
-#include "resource/heterogeneous_resource.hpp"
-#include "resource/malloc_resource.hpp"
-#include "resource/managed_resource.hpp"
-#include "resource/system_resource.hpp"
+#include "allocator/allocator.hpp"
+#include "allocator/allocator_adaptor.hpp"
+#include "allocator/heterogeneous_allocator.hpp"
+#include "allocator/managed_allocator.hpp"
 
 #include "../detail/epilogue.hpp"
 
