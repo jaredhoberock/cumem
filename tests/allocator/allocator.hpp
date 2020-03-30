@@ -15,9 +15,9 @@
 __host__ __device__
 void test_allocate()
 {
-  cumem::allocator<int> r;
+  cumem::allocator<int> a;
 
-  int* ptr = r.allocate(1);
+  int* ptr = a.allocate(1);
 
   int expected = 13;
   *ptr = expected;
@@ -25,36 +25,36 @@ void test_allocate()
 
   assert(expected == result);
 
-  r.deallocate(ptr, 1);
+  a.deallocate(ptr, 1);
 }
 
 
 __host__ __device__
 void test_comparison()
 {
-  cumem::allocator<int> r0, r1;
+  cumem::allocator<int> a0, a1;
 
   // all malloc_resources are the same
-  assert(r0 == r1);
-  assert(!(r0 != r1));
+  assert(a0 == a1);
+  assert(!(a0 != a1));
 }
 
 
 __host__ __device__
 void test_copy_construction()
 {
-  cumem::allocator<int> r;
-  cumem::allocator<int> copy = r;
+  cumem::allocator<int> a;
+  cumem::allocator<int> copy = a;
 
-  assert(r == copy);
+  assert(a == copy);
 }
 
 
 __host__ __device__
 void test_converting_copy_construction()
 {
-  cumem::allocator<int> r;
-  cumem::allocator<float> copy = r;
+  cumem::allocator<int> a;
+  cumem::allocator<float> copy = a;
 
   // silence unused variable warnings
   (void)copy;
@@ -63,12 +63,12 @@ void test_converting_copy_construction()
 
 void test_throw_on_failure()
 {
-  cumem::allocator<int> r;
+  cumem::allocator<int> a;
 
   try
   {
     std::size_t n = std::numeric_limits<std::size_t>::max();
-    r.allocate(n);
+    a.allocate(n);
   }
   catch(...)
   {
