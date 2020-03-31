@@ -45,6 +45,7 @@ template<class T, class MemoryResource>
 class allocator_adaptor : private MemoryResource // inherit from MemoryResource for the empty base class optimization
 {
   private:
+    // XXX alternatively, we could just store a reference to the MemoryResource
     static_assert(std::is_copy_constructible<MemoryResource>::value, "MemoryResource must be copy constructible.");
 
     using super_t = MemoryResource;
