@@ -30,9 +30,8 @@
 
 #include <memory>
 #include <type_traits>
-#include "../detail/customization_points/destroy.hpp"
-#include "../detail/customization_points/deallocate.hpp"
 #include "../detail/customization_points/swap.hpp"
+#include "allocator_delete.hpp"
 
 
 CUMEM_NAMESPACE_OPEN_BRACE
@@ -63,11 +62,7 @@ class allocation_deleter : private Allocator // use inheritance for empty base c
     CUMEM_ANNOTATION
     void operator()(pointer ptr)
     {
-      // destroy the object
-      detail::destroy(as_allocator(), ptr);
-
-      // deallocate the storage
-      detail::deallocate(as_allocator(), ptr, 1);
+      CUMEM_NAMESPACE::allocator_delete(as_allocator(), ptr);
     }
 
     CUMEM_ANNOTATION
