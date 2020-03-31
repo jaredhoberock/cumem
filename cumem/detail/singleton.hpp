@@ -134,25 +134,27 @@ class concurrent_singleton_view
   private:
     static_assert(std::is_constructible<T,Key>::value, "T must be constructible from Key.");
 
-    concurrent_value<T>& singleton_;
+    concurrent_value<T>* singleton_;
 
   public:
     explicit concurrent_singleton_view(const Key& key)
-      : singleton_(find_concurrent_singleton<concurrent_value<T>>(key))
+      : singleton_(&find_concurrent_singleton<concurrent_value<T>>(key))
     {}
+
+    concurrent_singleton_view(const concurrent_singleton_view&) = default;
 
     template<class Function>
     auto exclusive_invoke(Function&& f)
-      -> decltype(singleton_.exclusive_invoke(std::forward<Function>(f)))
+      -> decltype(singleton_->exclusive_invoke(std::forward<Function>(f)))
     {
-      return singleton_.exclusive_invoke(std::forward<Function>(f));
+      return singleton_->exclusive_invoke(std::forward<Function>(f));
     }
 
     template<class Function>
     auto unsafe_invoke(Function&& f) const
-      -> decltype(singleton_.unsafe_invoke(std::forward<Function>(f)))
+      -> decltype(singleton_->unsafe_invoke(std::forward<Function>(f)))
     {
-      return singleton_.unsafe_invoke(std::forward<Function>(f));
+      return singleton_->unsafe_invoke(std::forward<Function>(f));
     }
 };
   
