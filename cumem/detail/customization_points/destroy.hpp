@@ -5,6 +5,7 @@
 #include <type_traits>
 #include <utility>
 #include "../type_traits/is_detected.hpp"
+#include "destroy_at.hpp"
 #include "static_const.hpp"
 
 
@@ -69,10 +70,7 @@ struct destroy_customization_point
   CUMEM_ANNOTATION
   void operator()(A&&, T* p) const
   {
-    // call the destructor directly
-    p->~T();
-
-    // XXX consider delegating this to a hypothetical CPO named destroy_at(p)
+    detail::destroy_at(p);
   }
 };
 
