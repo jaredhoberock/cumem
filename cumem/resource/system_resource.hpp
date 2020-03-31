@@ -42,7 +42,6 @@ template<class MemoryResource>
 class system_resource
 {
   public:
-    static_assert(std::is_copy_constructible<MemoryResource>::value, "MemoryResource must be copy constructible.");
     static_assert(std::is_constructible<MemoryResource,int>::value, "MemoryResource must be constructible from a device ordinal.");
 
     explicit system_resource(int device)
