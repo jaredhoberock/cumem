@@ -56,7 +56,7 @@ struct deallocate_customization_point
   constexpr auto operator()(A&& a, P&& p, N&& n) const ->
     decltype(deallocate(std::forward<A>(a), std::forward<P>(p), std::forward<N>(n)))
   {
-    return deallocate(std::forward<A>(a), std::forward<P>(p, std::forward<N>(n)));
+    return deallocate(std::forward<A>(a), std::forward<P>(p), std::forward<N>(n));
   }
 };
 
