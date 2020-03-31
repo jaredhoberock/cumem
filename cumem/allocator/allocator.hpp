@@ -42,11 +42,11 @@ CUMEM_NAMESPACE_OPEN_BRACE
 //
 // That means that when on the host, allocator allocates CUDA managed memory through a system-wide memory pool.
 // When on the device, allocator allocates CUDA __device__ memory through malloc.
-template<class T, class HostResource = system_resource<managed_resource>>
-class allocator : public heterogeneous_allocator<T, HostResource>
+template<class T>
+class allocator : public heterogeneous_allocator<T, system_resource<managed_resource>>
 {
   private:
-    using super_t = heterogeneous_allocator<T, HostResource>;
+    using super_t = heterogeneous_allocator<T, system_resource<managed_resource>>;
 
   public:
     allocator() = default;
