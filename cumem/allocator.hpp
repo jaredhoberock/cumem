@@ -28,6 +28,7 @@
 
 #include "../detail/prologue.hpp"
 
+#include "allocator/allocation_deleter.hpp"
 #include "allocator/allocator.hpp"
 #include "allocator/allocator_adaptor.hpp"
 #include "allocator/heterogeneous_allocator.hpp"
