@@ -32,3 +32,16 @@
 
 #endif
 
+#if !defined(CUMEM_DETAIL_NAMESPACE)
+
+// allow the user to define a singly-nested namespace for private implementation details
+#  define CUMEM_DETAIL_NAMESPACE detail
+#  define CUMEM_DETAIL_NAMESPACE_NEEDS_UNDEF
+
+#elif defined(CUMEM_DETAIL_NAMESPACE_NEEDS_UNDEF)
+
+#  undef CUMEM_DETAIL_NAMESPACE
+#  undef CUMEM_DETAIL_NAMESPACE_NEEDS_UNDEF
+
+#endif
+

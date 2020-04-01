@@ -34,7 +34,7 @@
 CUMEM_NAMESPACE_OPEN_BRACE
 
 
-namespace detail
+namespace CUMEM_DETAIL_NAMESPACE
 {
 
 
@@ -98,7 +98,7 @@ constexpr bool is_detected_convertible_v = is_detected_convertible<To, Op, Args.
 #endif
 
 
-} // end detail
+} // end CUMEM_DETAIL_NAMESPACE
 
 
 CUMEM_NAMESPACE_CLOSE_BRACE

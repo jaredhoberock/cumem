@@ -10,7 +10,7 @@
 CUMEM_NAMESPACE_OPEN_BRACE
 
 
-namespace detail
+namespace CUMEM_DETAIL_NAMESPACE
 {
 
 
@@ -67,16 +67,16 @@ namespace
 
 // define the deallocate customization point object
 #ifndef __CUDA_ARCH__
-constexpr auto const& deallocate = detail::static_const<detail::deallocate_customization_point>::value;
+constexpr auto const& deallocate = CUMEM_DETAIL_NAMESPACE::static_const<CUMEM_DETAIL_NAMESPACE::deallocate_customization_point>::value;
 #else
-const __device__ detail::deallocate_customization_point deallocate;
+const __device__ CUMEM_DETAIL_NAMESPACE::deallocate_customization_point deallocate;
 #endif
 
 
 } // end anonymous namespace
 
 
-} // end detail
+} // end CUMEM_DETAIL_NAMESPACE
 
 
 CUMEM_NAMESPACE_CLOSE_BRACE

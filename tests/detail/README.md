@@ -1,4 +1,4 @@
-This directory contains unit tests exercising implementation details defined beneath the `<repo-name>/detail` directory.
+This directory contains unit tests exercising implementation details defined beneath the `cumem/detail` directory.
 
 These tests are intended to test implementation details complex and encapsulated enough to be validated independently of public functionality.
 

@@ -12,7 +12,7 @@
 CUMEM_NAMESPACE_OPEN_BRACE
 
 
-namespace detail
+namespace CUMEM_DETAIL_NAMESPACE
 {
 
 
@@ -70,7 +70,7 @@ struct destroy_customization_point
   CUMEM_ANNOTATION
   void operator()(A&&, T* p) const
   {
-    detail::destroy_at(p);
+    CUMEM_DETAIL_NAMESPACE::destroy_at(p);
   }
 };
 
@@ -81,16 +81,16 @@ namespace
 
 // define the destroy customization point object
 #ifndef __CUDA_ARCH__
-constexpr auto const& destroy = detail::static_const<detail::destroy_customization_point>::value;
+constexpr auto const& destroy = CUMEM_DETAIL_NAMESPACE::static_const<CUMEM_DETAIL_NAMESPACE::destroy_customization_point>::value;
 #else
-const __device__ detail::destroy_customization_point destroy;
+const __device__ CUMEM_DETAIL_NAMESPACE::destroy_customization_point destroy;
 #endif
 
 
 } // end anonymous namespace
 
 
-} // end detail
+} // end CUMEM_DETAIL_NAMESPACE
 
 
 CUMEM_NAMESPACE_CLOSE_BRACE

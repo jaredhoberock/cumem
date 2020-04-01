@@ -49,7 +49,7 @@ struct malloc_resource
 
     if(result == nullptr)
     {
-      detail::throw_runtime_error("malloc_resource::allocate: malloc failed.\n");
+      CUMEM_DETAIL_NAMESPACE::throw_runtime_error("malloc_resource::allocate: malloc failed.\n");
     }
 
     return result;

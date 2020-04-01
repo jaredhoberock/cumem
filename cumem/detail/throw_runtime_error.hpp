@@ -33,7 +33,7 @@
 CUMEM_NAMESPACE_OPEN_BRACE
 
 
-namespace detail
+namespace CUMEM_DETAIL_NAMESPACE
 {
 
 
@@ -43,12 +43,12 @@ inline void throw_runtime_error(const char* message)
 #ifndef __CUDA_ARCH__
   throw std::runtime_error(message);
 #else
-  detail::terminate_with_message(message);
+  CUMEM_DETAIL_NAMESPACE::terminate_with_message(message);
 #endif
 }
 
 
-} // end detail
+} // end CUMEM_DETAIL_NAMESPACE
 
 
 CUMEM_NAMESPACE_CLOSE_BRACE

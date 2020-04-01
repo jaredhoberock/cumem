@@ -17,6 +17,14 @@
 #error CUMEM_CONCATENATE_IMPL defined in client code.
 #endif
 
+#ifdef CUMEM_DETAIL_NAMESPACE
+#error CUMEM_DETAIL_NAMESPACE defined in client code.
+#endif
+
+#ifdef CUMEM_DETAIL_NAMESPACE_NEEDS_UNDEF
+#error CUMEM_DETAIL_NAMESPACE_NEEDS_UNDEF defined in client code.
+#endif
+
 #ifdef CUMEM_EXEC_CHECK_DISABLE
 #error CUMEM_EXEC_CHECK_DISABLE defined in client code.
 #endif

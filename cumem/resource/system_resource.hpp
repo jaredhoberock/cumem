@@ -103,7 +103,7 @@ class system_resource
     // since this is intended to be a system-wide resource, cache its allocations
     using singleton_resource_type = cached_resource<MemoryResource>;
 
-    detail::concurrent_singleton_view<int, singleton_resource_type> singleton_;
+    CUMEM_DETAIL_NAMESPACE::concurrent_singleton_view<int, singleton_resource_type> singleton_;
 };
 
 

@@ -35,7 +35,7 @@
 
 CUMEM_NAMESPACE_OPEN_BRACE
 
-namespace detail
+namespace CUMEM_DETAIL_NAMESPACE
 {
 namespace throw_on_error_detail
 {
@@ -64,14 +64,14 @@ inline void throw_on_error(cudaError_t e, const char* message)
     std::string what = std::string(message) + std::string(": ") + cudaGetErrorString(e);
     throw std::runtime_error(what);
 #else
-    detail::throw_on_error_detail::print_error_message(e, message);
-    detail::terminate();
+    CUMEM_DETAIL_NAMESPACE::throw_on_error_detail::print_error_message(e, message);
+    CUMEM_DETAIL_NAMESPACE::terminate();
 #endif
   }
 }
 
 
-} // end detail
+} // end CUMEM_DETAIL_NAMESPACE
 
 CUMEM_NAMESPACE_CLOSE_BRACE
 

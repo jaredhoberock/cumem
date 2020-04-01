@@ -34,7 +34,7 @@
 CUMEM_NAMESPACE_OPEN_BRACE
 
 
-namespace detail
+namespace CUMEM_DETAIL_NAMESPACE
 {
 
 
@@ -54,11 +54,11 @@ inline void terminate_with_message(const char* message)
 {
   printf("%s\n", message);
 
-  detail::terminate();
+  CUMEM_DETAIL_NAMESPACE::terminate();
 }
 
 
-} // end detail
+} // end CUMEM_DETAIL_NAMESPACE
 
 CUMEM_NAMESPACE_CLOSE_BRACE
 

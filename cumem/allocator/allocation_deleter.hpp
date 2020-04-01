@@ -74,7 +74,7 @@ class allocation_deleter : private Allocator // use inheritance for empty base c
     CUMEM_ANNOTATION
     void swap(allocation_deleter& other)
     {
-      detail::swap(as_allocator(), other.as_allocator());
+      CUMEM_DETAIL_NAMESPACE::swap(as_allocator(), other.as_allocator());
     }
 
   private:

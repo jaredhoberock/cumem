@@ -37,7 +37,7 @@
 CUMEM_NAMESPACE_OPEN_BRACE
 
 
-namespace detail
+namespace CUMEM_DETAIL_NAMESPACE
 {
 
 
@@ -52,14 +52,14 @@ auto invoke_with_current_device(int device, Function&& f)
 {
   int old_device{};
 
-  detail::throw_on_error(cudaGetDevice(&old_device), "detail::invoke_with_current_device: CUDA error after cudaGetDevice");
+  CUMEM_DETAIL_NAMESPACE::throw_on_error(cudaGetDevice(&old_device), "detail::invoke_with_current_device: CUDA error after cudaGetDevice");
 
   if(device != old_device)
   {
 #ifdef __CUDA_ARCH__
-    detail::terminate_with_message("detail::invoke_with_current_device: Requested device cannot differ from current device in __device__ code.");
+    CUMEM_DETAIL_NAMESPACE::terminate_with_message("detail::invoke_with_current_device: Requested device cannot differ from current device in __device__ code.");
 #else
-    detail::throw_on_error(cudaSetDevice(device), "detail::invoke_with_current_device: CUDA error after cudaSetDevice");
+    CUMEM_DETAIL_NAMESPACE::throw_on_error(cudaSetDevice(device), "detail::invoke_with_current_device: CUDA error after cudaSetDevice");
 #endif
   }
 
@@ -68,7 +68,7 @@ auto invoke_with_current_device(int device, Function&& f)
   if(device != old_device)
   {
 #ifndef __CUDA_ARCH__
-    detail::throw_on_error(cudaSetDevice(old_device), "detail::invoke_with_current_device: CUDA error after cudaSetDevice");
+    CUMEM_DETAIL_NAMESPACE::throw_on_error(cudaSetDevice(old_device), "detail::invoke_with_current_device: CUDA error after cudaSetDevice");
 #endif
   }
 };
@@ -85,14 +85,14 @@ auto invoke_with_current_device(int device, Function&& f)
 {
   int old_device{};
 
-  detail::throw_on_error(cudaGetDevice(&old_device), "detail::invoke_with_current_device: CUDA error after cudaGetDevice");
+  CUMEM_DETAIL_NAMESPACE::throw_on_error(cudaGetDevice(&old_device), "detail::invoke_with_current_device: CUDA error after cudaGetDevice");
 
   if(device != old_device)
   {
 #ifdef __CUDA_ARCH__
-    detail::terminate_with_message("detail::invoke_with_current_device: Requested device cannot differ from current device in __device__ code.");
+    CUMEM_DETAIL_NAMESPACE::terminate_with_message("detail::invoke_with_current_device: Requested device cannot differ from current device in __device__ code.");
 #else
-    detail::throw_on_error(cudaSetDevice(device), "detail::invoke_with_current_device: CUDA error after cudaSetDevice");
+    CUMEM_DETAIL_NAMESPACE::throw_on_error(cudaSetDevice(device), "detail::invoke_with_current_device: CUDA error after cudaSetDevice");
 #endif
   }
 
@@ -101,7 +101,7 @@ auto invoke_with_current_device(int device, Function&& f)
   if(device != old_device)
   {
 #ifndef __CUDA_ARCH__
-    detail::throw_on_error(cudaSetDevice(old_device), "detail::invoke_with_current_device: CUDA error after cudaSetDevice");
+    CUMEM_DETAIL_NAMESPACE::throw_on_error(cudaSetDevice(old_device), "detail::invoke_with_current_device: CUDA error after cudaSetDevice");
 #endif
   }
 
@@ -109,7 +109,7 @@ auto invoke_with_current_device(int device, Function&& f)
 };
 
 
-} // end detail
+} // end CUMEM_DETAIL_NAMESPACE
 
 
 CUMEM_NAMESPACE_CLOSE_BRACE

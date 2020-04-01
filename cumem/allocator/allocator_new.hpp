@@ -47,8 +47,8 @@ allocator_new_t<T,Alloc> allocator_new(Alloc& alloc, Args&&... args)
   using allocator_type = typename std::allocator_traits<Alloc>::template rebind_alloc<T>;
   allocator_type alloc_copy = alloc;
 
-  auto p = detail::allocate(alloc_copy, 1);
-  detail::construct(alloc_copy, p, std::forward<Args>(args)...);
+  auto p = CUMEM_DETAIL_NAMESPACE::allocate(alloc_copy, 1);
+  CUMEM_DETAIL_NAMESPACE::construct(alloc_copy, p, std::forward<Args>(args)...);
 
   return p;
 }

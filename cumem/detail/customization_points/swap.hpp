@@ -11,7 +11,7 @@
 CUMEM_NAMESPACE_OPEN_BRACE
 
 
-namespace detail
+namespace CUMEM_DETAIL_NAMESPACE
 {
 
 
@@ -79,16 +79,16 @@ namespace
 
 // define the swap customization point object
 #ifndef __CUDA_ARCH__
-constexpr auto const& swap = detail::static_const<detail::swap_customization_point>::value;
+constexpr auto const& swap = CUMEM_DETAIL_NAMESPACE::static_const<CUMEM_DETAIL_NAMESPACE::swap_customization_point>::value;
 #else
-const __device__ detail::swap_customization_point swap;
+const __device__ CUMEM_DETAIL_NAMESPACE::swap_customization_point swap;
 #endif
 
 
 } // end anonymous namespace
 
 
-} // end detail
+} // end CUMEM_DETAIL_NAMESPACE
 
 
 CUMEM_NAMESPACE_CLOSE_BRACE

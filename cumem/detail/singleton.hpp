@@ -37,7 +37,7 @@
 CUMEM_NAMESPACE_OPEN_BRACE
 
 
-namespace detail
+namespace CUMEM_DETAIL_NAMESPACE
 {
 
 
@@ -106,7 +106,7 @@ T& find_concurrent_singleton(const Key& key)
   using map_type = concurrent_value<std::map<Key,T>>;
 
   // get the singleton map
-  map_type& singleton_map = *detail::singleton<map_type>();
+  map_type& singleton_map = *CUMEM_DETAIL_NAMESPACE::singleton<map_type>();
 
   // find the singleton object of interest, or create it if it
   // doesn't exist
@@ -159,7 +159,7 @@ class concurrent_singleton_view
 };
   
 
-} // end detail
+} // end CUMEM_DETAIL_NAMESPACE
 
 
 CUMEM_NAMESPACE_CLOSE_BRACE

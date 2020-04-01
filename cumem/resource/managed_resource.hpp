@@ -52,11 +52,11 @@ class managed_resource
 
     inline void* allocate(std::size_t num_bytes) const
     {
-      return detail::invoke_with_current_device(device(), [=]
+      return CUMEM_DETAIL_NAMESPACE::invoke_with_current_device(device(), [=]
       {
         void* result = nullptr;
 
-        detail::throw_on_error(cudaMallocManaged(&result, num_bytes, cudaMemAttachGlobal), "managed_resource::allocate: CUDA error after cudaMallocManaged");
+        CUMEM_DETAIL_NAMESPACE::throw_on_error(cudaMallocManaged(&result, num_bytes, cudaMemAttachGlobal), "managed_resource::allocate: CUDA error after cudaMallocManaged");
 
         return result;
       });
@@ -64,9 +64,9 @@ class managed_resource
 
     inline void deallocate(void* ptr, std::size_t) const
     {
-      detail::invoke_with_current_device(device(), [=]
+      CUMEM_DETAIL_NAMESPACE::invoke_with_current_device(device(), [=]
       {
-        detail::throw_on_error(cudaFree(ptr), "managed_resource::deallocate: CUDA error after cudaFree");
+        CUMEM_DETAIL_NAMESPACE::throw_on_error(cudaFree(ptr), "managed_resource::deallocate: CUDA error after cudaFree");
       });
     }
 

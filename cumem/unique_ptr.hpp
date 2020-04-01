@@ -41,7 +41,7 @@
 CUMEM_NAMESPACE_OPEN_BRACE
 
 
-namespace detail
+namespace CUMEM_DETAIL_NAMESPACE
 {
 
 
@@ -55,7 +55,7 @@ template<class T>
 using nested_pointer_t = typename nested_pointer<T>::type;
 
 
-} // end detail
+} // end CUMEM_DETAIL_NAMESPACE
 
 
 template<class T>
@@ -80,9 +80,9 @@ class unique_ptr
   public:
     using element_type = typename std::decay<T>::type;
 
-    using pointer = detail::detected_or_t<
+    using pointer = CUMEM_DETAIL_NAMESPACE::detected_or_t<
       T*,
-      detail::nested_pointer_t,
+      CUMEM_DETAIL_NAMESPACE::nested_pointer_t,
       typename std::remove_reference<Deleter>::type
     >;
 
@@ -107,8 +107,8 @@ class unique_ptr
       : ptr_(),
         deleter_(std::move(other.get_deleter()))
     {
-      detail::swap(ptr_, other.ptr_);
-      detail::swap(deleter_, other.deleter_);
+      CUMEM_DETAIL_NAMESPACE::swap(ptr_, other.ptr_);
+      CUMEM_DETAIL_NAMESPACE::swap(deleter_, other.deleter_);
     }
 
     template<class OtherT,
@@ -131,8 +131,8 @@ class unique_ptr
     CUMEM_ANNOTATION
     unique_ptr& operator=(unique_ptr&& other)
     {
-      detail::swap(ptr_, other.ptr_);
-      detail::swap(deleter_, other.deleter_);
+      CUMEM_DETAIL_NAMESPACE::swap(ptr_, other.ptr_);
+      CUMEM_DETAIL_NAMESPACE::swap(deleter_, other.deleter_);
       return *this;
     }
 
@@ -146,14 +146,14 @@ class unique_ptr
     pointer release()
     {
       pointer result = nullptr;
-      detail::swap(ptr_, result);
+      CUMEM_DETAIL_NAMESPACE::swap(ptr_, result);
       return result;
     }
 
     CUMEM_ANNOTATION
     void reset(pointer ptr = pointer())
     {
-      detail::swap(ptr_, ptr);
+      CUMEM_DETAIL_NAMESPACE::swap(ptr_, ptr);
 
       if(ptr != nullptr)
       {
@@ -194,8 +194,8 @@ class unique_ptr
     CUMEM_ANNOTATION
     void swap(unique_ptr& other)
     {
-      detail::swap(ptr_, other.ptr_);
-      detail::swap(deleter_, other.deleter_);
+      CUMEM_DETAIL_NAMESPACE::swap(ptr_, other.ptr_);
+      CUMEM_DETAIL_NAMESPACE::swap(deleter_, other.deleter_);
     }
 
   private:
@@ -215,7 +215,7 @@ unique_ptr<T,Deleter> allocate_unique_with_deleter(const Alloc& alloc, const Del
 
   unique_ptr<T,Deleter> result(alloc_copy.allocate(1), deleter_copy);
 
-  detail::construct(alloc_copy, result.get(), std::forward<Args>(args)...);
+  CUMEM_DETAIL_NAMESPACE::construct(alloc_copy, result.get(), std::forward<Args>(args)...);
 
   return std::move(result);
 }

@@ -43,8 +43,8 @@ void allocator_delete(Alloc& alloc, P ptr)
   using allocator_type = typename std::allocator_traits<Alloc>::template rebind_alloc<T>;
   allocator_type alloc_copy = alloc;
 
-  detail::destroy(alloc_copy, ptr);
-  detail::deallocate(alloc_copy, ptr, 1);
+  CUMEM_DETAIL_NAMESPACE::destroy(alloc_copy, ptr);
+  CUMEM_DETAIL_NAMESPACE::deallocate(alloc_copy, ptr, 1);
 }
 
 
