@@ -95,15 +95,15 @@ class unique_ptr
     {}
 
     CUMEM_ANNOTATION
-    unique_ptr(pointer ptr)
+    unique_ptr(pointer ptr) noexcept
       : unique_ptr(ptr, deleter_type{})
     {}
 
     CUMEM_ANNOTATION
-    unique_ptr() : unique_ptr(nullptr) {}
+    unique_ptr() noexcept : unique_ptr(nullptr) {}
 
     CUMEM_ANNOTATION
-    unique_ptr(unique_ptr&& other)
+    unique_ptr(unique_ptr&& other) noexcept
       : ptr_(),
         deleter_(std::move(other.get_deleter()))
     {
@@ -117,7 +117,7 @@ class unique_ptr
              CUMEM_REQUIRES(std::is_constructible<Deleter, OtherDeleter&&>::value)
             >
     CUMEM_ANNOTATION
-    unique_ptr(unique_ptr<OtherT,OtherDeleter>&& other)
+    unique_ptr(unique_ptr<OtherT,OtherDeleter>&& other) noexcept
       : ptr_(other.release()),
         deleter_(std::move(other.get_deleter()))
     {}
@@ -129,7 +129,7 @@ class unique_ptr
     }
 
     CUMEM_ANNOTATION
-    unique_ptr& operator=(unique_ptr&& other)
+    unique_ptr& operator=(unique_ptr&& other) noexcept
     {
       CUMEM_DETAIL_NAMESPACE::swap(ptr_, other.ptr_);
       CUMEM_DETAIL_NAMESPACE::swap(deleter_, other.deleter_);
@@ -137,13 +137,13 @@ class unique_ptr
     }
 
     CUMEM_ANNOTATION
-    pointer get() const
+    pointer get() const noexcept
     {
       return ptr_;
     }
 
     CUMEM_ANNOTATION
-    pointer release()
+    pointer release() noexcept
     {
       pointer result = nullptr;
       CUMEM_DETAIL_NAMESPACE::swap(ptr_, result);
@@ -151,7 +151,7 @@ class unique_ptr
     }
 
     CUMEM_ANNOTATION
-    void reset(pointer ptr = pointer())
+    void reset(pointer ptr = pointer()) noexcept
     {
       CUMEM_DETAIL_NAMESPACE::swap(ptr_, ptr);
 
@@ -162,37 +162,31 @@ class unique_ptr
     }
 
     CUMEM_ANNOTATION
-    deleter_type& get_deleter()
+    deleter_type& get_deleter() noexcept
     {
       return deleter_;
     }
 
     CUMEM_ANNOTATION
-    const deleter_type& get_deleter() const
+    const deleter_type& get_deleter() const noexcept
     {
       return deleter_;
     }
 
     CUMEM_ANNOTATION
-    const T& operator*() const
+    typename std::add_lvalue_reference<T>::type operator*() const
     {
       return *ptr_;
     }
 
     CUMEM_ANNOTATION
-    T& operator*()
-    {
-      return *ptr_;
-    }
-
-    CUMEM_ANNOTATION
-    operator bool () const
+    operator bool () const noexcept
     {
       return get();
     }
 
     CUMEM_ANNOTATION
-    void swap(unique_ptr& other)
+    void swap(unique_ptr& other) noexcept
     {
       CUMEM_DETAIL_NAMESPACE::swap(ptr_, other.ptr_);
       CUMEM_DETAIL_NAMESPACE::swap(deleter_, other.deleter_);
