@@ -1,6 +1,6 @@
 #include <cassert>
+#include <cumem/allocator/allocate.hpp>
 #include <cumem/allocator/allocator.hpp>
-#include <cumem/memory/allocate.hpp>
 #include <limits>
 
 

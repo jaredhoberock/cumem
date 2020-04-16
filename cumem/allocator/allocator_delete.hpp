@@ -29,7 +29,7 @@
 #include "../detail/prologue.hpp"
 
 #include <memory>
-#include "../detail/customization_points/deallocate.hpp"
+#include "deallocate.hpp"
 #include "../detail/customization_points/destroy.hpp"
 
 CUMEM_NAMESPACE_OPEN_BRACE
@@ -44,7 +44,7 @@ void allocator_delete(Alloc& alloc, P ptr)
   allocator_type alloc_copy = alloc;
 
   CUMEM_DETAIL_NAMESPACE::destroy(alloc_copy, ptr);
-  CUMEM_DETAIL_NAMESPACE::deallocate(alloc_copy, ptr, 1);
+  CUMEM_NAMESPACE::deallocate(alloc_copy, ptr, 1);
 }
 
 

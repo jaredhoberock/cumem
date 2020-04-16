@@ -28,11 +28,13 @@
 
 #include "../detail/prologue.hpp"
 
+#include "allocator/allocate.hpp"
 #include "allocator/allocation_deleter.hpp"
 #include "allocator/allocator.hpp"
 #include "allocator/allocator_adaptor.hpp"
 #include "allocator/allocator_delete.hpp"
 #include "allocator/allocator_new.hpp"
+#include "allocator/deallocate.hpp"
 #include "allocator/heterogeneous_allocator.hpp"
 #include "allocator/managed_allocator.hpp"
 

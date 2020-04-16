@@ -29,8 +29,8 @@
 #include "../detail/prologue.hpp"
 
 #include <memory>
-#include "../detail/customization_points/allocate.hpp"
 #include "../detail/customization_points/construct.hpp"
+#include "allocate.hpp"
 
 CUMEM_NAMESPACE_OPEN_BRACE
 
@@ -47,7 +47,7 @@ allocator_new_t<T,Alloc> allocator_new(Alloc& alloc, Args&&... args)
   using allocator_type = typename std::allocator_traits<Alloc>::template rebind_alloc<T>;
   allocator_type alloc_copy = alloc;
 
-  auto p = CUMEM_DETAIL_NAMESPACE::allocate(alloc_copy, 1);
+  auto p = CUMEM_NAMESPACE::allocate(alloc_copy, 1);
   CUMEM_DETAIL_NAMESPACE::construct(alloc_copy, p, std::forward<Args>(args)...);
 
   return p;
