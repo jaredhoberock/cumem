@@ -33,7 +33,7 @@
 #include <utility>
 #include "allocator/allocation_deleter.hpp"
 #include "allocator/allocator.hpp"
-#include "detail/customization_points/construct.hpp"
+#include "allocator/construct.hpp"
 #include "detail/customization_points/swap.hpp"
 #include "detail/type_traits/is_detected.hpp"
 
@@ -209,7 +209,7 @@ unique_ptr<T,Deleter> allocate_unique_with_deleter(const Alloc& alloc, const Del
 
   unique_ptr<T,Deleter> result(alloc_copy.allocate(1), deleter_copy);
 
-  CUMEM_DETAIL_NAMESPACE::construct(alloc_copy, result.get(), std::forward<Args>(args)...);
+  CUMEM_NAMESPACE::construct(alloc_copy, result.get(), std::forward<Args>(args)...);
 
   return std::move(result);
 }

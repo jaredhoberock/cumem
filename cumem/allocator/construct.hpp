@@ -26,12 +26,12 @@
 
 #pragma once
 
-#include "../prologue.hpp"
+#include "../detail/prologue.hpp"
 
 #include <type_traits>
 #include <utility>
-#include "../static_const.hpp"
-#include "../type_traits/is_detected.hpp"
+#include "../detail/static_const.hpp"
+#include "../detail/type_traits/is_detected.hpp"
 #include "construct_at.hpp"
 
 
@@ -99,9 +99,12 @@ struct construct_customization_point
   CUMEM_ANNOTATION
   void operator()(A&&, T* p, Args&&... args) const
   {
-    CUMEM_DETAIL_NAMESPACE::construct_at(p, std::forward<Args>(args)...);
+    CUMEM_NAMESPACE::construct_at(p, std::forward<Args>(args)...);
   }
 };
+
+
+} // end CUMEM_DETAIL_NAMESPACE
 
 
 namespace
@@ -119,10 +122,7 @@ const __device__ CUMEM_DETAIL_NAMESPACE::construct_customization_point construct
 } // end anonymous namespace
 
 
-} // end CUMEM_DETAIL_NAMESPACE
-
-
 CUMEM_NAMESPACE_CLOSE_BRACE
 
-#include "../epilogue.hpp"
+#include "../detail/epilogue.hpp"
 

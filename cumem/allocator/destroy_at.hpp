@@ -26,12 +26,12 @@
 
 #pragma once
 
-#include "../prologue.hpp"
+#include "../detail/prologue.hpp"
 
 #include <type_traits>
 #include <utility>
-#include "../static_const.hpp"
-#include "../type_traits/is_detected.hpp"
+#include "../detail/static_const.hpp"
+#include "../detail/type_traits/is_detected.hpp"
 
 
 CUMEM_NAMESPACE_OPEN_BRACE
@@ -98,6 +98,9 @@ struct destroy_at_customization_point
 };
 
 
+} // end CUMEM_DETAIL_NAMESPACE
+
+
 namespace
 {
 
@@ -113,11 +116,8 @@ const __device__ CUMEM_DETAIL_NAMESPACE::destroy_at_customization_point destroy_
 } // end anonymous namespace
 
 
-} // end CUMEM_DETAIL_NAMESPACE
-
-
 CUMEM_NAMESPACE_CLOSE_BRACE
 
-#include "../epilogue.hpp"
+#include "../detail/epilogue.hpp"
 
 

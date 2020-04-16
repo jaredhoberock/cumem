@@ -34,7 +34,11 @@
 #include "allocator/allocator_adaptor.hpp"
 #include "allocator/allocator_delete.hpp"
 #include "allocator/allocator_new.hpp"
+#include "allocator/construct.hpp"
+#include "allocator/construct_at.hpp"
 #include "allocator/deallocate.hpp"
+#include "allocator/destroy.hpp"
+#include "allocator/destroy_at.hpp"
 #include "allocator/heterogeneous_allocator.hpp"
 #include "allocator/managed_allocator.hpp"
 

@@ -30,7 +30,7 @@
 
 #include <memory>
 #include "deallocate.hpp"
-#include "../detail/customization_points/destroy.hpp"
+#include "destroy.hpp"
 
 CUMEM_NAMESPACE_OPEN_BRACE
 
@@ -43,7 +43,7 @@ void allocator_delete(Alloc& alloc, P ptr)
   using allocator_type = typename std::allocator_traits<Alloc>::template rebind_alloc<T>;
   allocator_type alloc_copy = alloc;
 
-  CUMEM_DETAIL_NAMESPACE::destroy(alloc_copy, ptr);
+  CUMEM_NAMESPACE::destroy(alloc_copy, ptr);
   CUMEM_NAMESPACE::deallocate(alloc_copy, ptr, 1);
 }
 
