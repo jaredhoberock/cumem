@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../prologue.hpp"
+#include "prologue.hpp"
 
 CUMEM_NAMESPACE_OPEN_BRACE
 
@@ -26,5 +26,5 @@ constexpr T static_const<T>::value;
 
 CUMEM_NAMESPACE_CLOSE_BRACE
 
-#include "../epilogue.hpp"
+#include "epilogue.hpp"
 

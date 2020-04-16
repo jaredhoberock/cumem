@@ -30,9 +30,9 @@
 
 #include <type_traits>
 #include <utility>
+#include "../static_const.hpp"
 #include "../type_traits/is_detected.hpp"
 #include "construct_at.hpp"
-#include "static_const.hpp"
 
 
 CUMEM_NAMESPACE_OPEN_BRACE
