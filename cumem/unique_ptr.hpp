@@ -34,7 +34,7 @@
 #include "allocator/allocation_deleter.hpp"
 #include "allocator/allocator.hpp"
 #include "allocator/construct.hpp"
-#include "detail/customization_points/swap.hpp"
+#include "detail/swap.hpp"
 #include "detail/type_traits/is_detected.hpp"
 
 

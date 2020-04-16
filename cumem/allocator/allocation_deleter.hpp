@@ -30,7 +30,7 @@
 
 #include <memory>
 #include <type_traits>
-#include "../detail/customization_points/swap.hpp"
+#include "../detail/swap.hpp"
 #include "allocator_delete.hpp"
 
 
