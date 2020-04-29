@@ -26,7 +26,7 @@
 
 #pragma once
 
-#include "../detail/prologue.hpp"
+#include "detail/prologue.hpp"
 
 #include "allocator/allocate.hpp"
 #include "allocator/allocation_deleter.hpp"
@@ -42,5 +42,5 @@
 #include "allocator/heterogeneous_allocator.hpp"
 #include "allocator/managed_allocator.hpp"
 
-#include "../detail/epilogue.hpp"
+#include "detail/epilogue.hpp"
 
