@@ -34,6 +34,7 @@
 #include "allocator/allocation_deleter.hpp"
 #include "allocator/allocator.hpp"
 #include "allocator/construct.hpp"
+#include "detail/static_const.hpp"
 #include "detail/swap.hpp"
 #include "detail/type_traits/is_detected.hpp"
 
@@ -198,10 +199,27 @@ class unique_ptr
 };
 
 
+struct uninitialized_t{};
+
+
+namespace
+{
+
+
+#ifndef __CUDA_ARCH__
+constexpr uninitialized_t const& uninitialized = CUMEM_DETAIL_NAMESPACE::static_const<uninitialized_t>::value;
+#else
+const __device__ uninitialized_t uninitialized;
+#endif
+
+
+} // end anonymous namespace
+
+
 CUMEM_EXEC_CHECK_DISABLE
-template<class T, class Alloc, class Deleter, class... Args>
+template<class T, class Alloc, class Deleter>
 CUMEM_ANNOTATION
-unique_ptr<T,Deleter> allocate_unique_with_deleter(const Alloc& alloc, const Deleter& deleter, Args&&... args)
+unique_ptr<T,Deleter> allocate_unique_with_deleter(const Alloc& alloc, const Deleter& deleter, uninitialized_t)
 {
   using allocator_type = typename std::allocator_traits<Alloc>::template rebind_alloc<T>;
   allocator_type alloc_copy = alloc;
@@ -209,7 +227,18 @@ unique_ptr<T,Deleter> allocate_unique_with_deleter(const Alloc& alloc, const Del
 
   unique_ptr<T,Deleter> result(alloc_copy.allocate(1), deleter_copy);
 
-  CUMEM_NAMESPACE::construct(alloc_copy, result.get(), std::forward<Args>(args)...);
+  return std::move(result);
+}
+
+
+CUMEM_EXEC_CHECK_DISABLE
+template<class T, class Alloc, class Deleter, class... Args>
+CUMEM_ANNOTATION
+unique_ptr<T,Deleter> allocate_unique_with_deleter(const Alloc& alloc, const Deleter& deleter, Args&&... args)
+{
+  unique_ptr<T,Deleter> result = CUMEM_NAMESPACE::allocate_unique_with_deleter<T>(alloc, deleter, uninitialized);
+
+  CUMEM_NAMESPACE::construct(alloc, result.get(), std::forward<Args>(args)...);
 
   return std::move(result);
 }
