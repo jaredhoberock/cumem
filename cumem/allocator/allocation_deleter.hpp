@@ -66,6 +66,12 @@ class allocation_deleter : private Allocator // use inheritance for empty base c
     }
 
     CUMEM_ANNOTATION
+    Allocator& allocator()
+    {
+      return *this;
+    }
+
+    CUMEM_ANNOTATION
     const Allocator& allocator() const
     {
       return *this;
