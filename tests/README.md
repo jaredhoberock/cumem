@@ -8,7 +8,7 @@ To build and execute all test programs in the current directory:
 
     $ make test
 
-To build and execute all test programs in a subdirectory (note the trailing slash):
+To build and execute all test programs in a subdirectory named `subdirectory/` (note the trailing slash):
 
     $ make subdirectory/
 
