@@ -261,3 +261,5 @@ shared_ptr<T,default_delete<T>> make_shared(Args&&... args)
 
 CUMEM_NAMESPACE_CLOSE_BRACE
 
+#include "detail/epilogue.hpp"
+
