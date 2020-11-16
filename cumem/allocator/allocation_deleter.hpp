@@ -50,6 +50,11 @@ class allocation_deleter : private Allocator // use inheritance for empty base c
       : Allocator(alloc)
     {}
 
+    CUMEM_ANNOTATION
+    allocation_deleter() noexcept
+      : allocation_deleter(Allocator{})
+    {}
+
     template<class OtherAllocator,
              CUMEM_REQUIRES(std::is_convertible<typename std::allocator_traits<OtherAllocator>::pointer, pointer>::value)
             >

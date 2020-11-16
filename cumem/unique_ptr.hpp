@@ -60,19 +60,7 @@ using nested_pointer_t = typename nested_pointer<T>::type;
 
 
 template<class T>
-class default_delete : public allocation_deleter<allocator<T>>
-{
-  private:
-    using super_t = allocation_deleter<allocator<T>>;
-
-  public:
-    using super_t::super_t;
-
-    CUMEM_ANNOTATION
-    default_delete()
-      : super_t(allocator<T>())
-    {}
-};
+using default_delete = allocation_deleter<allocator<T>>;
 
 
 template<class T, class Deleter = default_delete<T>>
