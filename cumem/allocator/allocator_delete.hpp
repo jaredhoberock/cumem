@@ -35,6 +35,7 @@
 CUMEM_NAMESPACE_OPEN_BRACE
 
 
+CUMEM_EXEC_CHECK_DISABLE
 template<class Alloc, class P>
 CUMEM_ANNOTATION
 void allocator_delete(Alloc& alloc, P ptr)
