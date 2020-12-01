@@ -115,7 +115,7 @@ class allocator_adaptor : private MemoryResource // inherit from MemoryResource 
     }
 
   private:
-    CUMEM_EXEC_CHECK_DISABLE
+    CUMEM_ANNOTATION
     MemoryResource& resource()
     {
       return *this;
