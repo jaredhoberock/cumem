@@ -29,6 +29,8 @@
 #include "../detail/prologue.hpp"
 
 #include <cstdint>
+#include <cstdio>
+#include <iostream>
 
 
 CUMEM_NAMESPACE_OPEN_BRACE
@@ -39,6 +41,9 @@ CUMEM_NAMESPACE_OPEN_BRACE
 template<class HostResource, class DeviceResource>
 class heterogeneous_resource
 {
+  private:
+    enum class from : char {host, device };
+
   public:
     using host_resource_type = HostResource;
     using device_resource_type = DeviceResource;
@@ -56,20 +61,40 @@ class heterogeneous_resource
     CUMEM_ANNOTATION
     void* allocate(std::size_t num_bytes)
     {
+      void* result{};
+
 #ifndef __CUDA_ARCH__
-      return host_resource_.allocate(num_bytes);
+      result = host_resource_.allocate(num_bytes + 1);
 #else
-      return device_resource_.allocate(num_bytes);
+      result = device_resource_.allocate(num_bytes + 1);
 #endif
+      
+      record_origin(result, num_bytes);
+
+      return result;
     }
 
     CUMEM_ANNOTATION
     void deallocate(void* ptr, std::size_t num_bytes)
     {
 #ifndef __CUDA_ARCH__
-      host_resource_.deallocate(ptr, num_bytes);
+      if(origin(ptr, num_bytes) == from::host)
+      {
+        host_resource_.deallocate(ptr, num_bytes + 1);
+      }
+      else
+      {
+        std::cerr << "Warning: heterogeneous_resource::deallocate: leaking __device__ resource allocation from __host__ code." << std::endl;
+      }
 #else
-      device_resource_.deallocate(ptr, num_bytes);
+      if(origin(ptr, num_bytes) == from::device)
+      {
+        device_resource_.deallocate(ptr, num_bytes + 1);
+      }
+      else
+      {
+        printf("Warning: heterogeneous_resource::deallocate: leaking __host__ resource allocation from __device__ code.\n");
+      }
 #endif
     }
 
@@ -96,6 +121,22 @@ class heterogeneous_resource
     }
 
   private:
+    CUMEM_ANNOTATION
+    static from origin(void* ptr, std::size_t num_bytes) noexcept
+    {
+      return reinterpret_cast<from*>(ptr)[num_bytes];
+    }
+
+    CUMEM_ANNOTATION
+    static void record_origin(void* ptr, std::size_t num_bytes) noexcept
+    {
+#ifndef __CUDA_ARCH__
+      reinterpret_cast<from*>(ptr)[num_bytes] = from::host;
+#else
+      reinterpret_cast<from*>(ptr)[num_bytes] = from::device;
+#endif
+    }
+
 #ifndef __CUDA_ARCH__
     host_resource_type host_resource_;
 #else
