@@ -41,17 +41,17 @@ namespace CUMEM_DETAIL_NAMESPACE
 
 
 template<class A, class N>
-using allocate_member_function_t = decltype(std::declval<A>().allocate(std::declval<N>()));
+using allocate_member_function_result_t = decltype(std::declval<A>().allocate(std::declval<N>()));
 
 template<class A, class N>
-using has_allocate_member_function = is_detected<allocate_member_function_t, A, N>;
+using has_allocate_member_function = is_detected<allocate_member_function_result_t, A, N>;
 
 
 template<class A, class N>
-using allocate_free_function_t = decltype(allocate(std::declval<A>(), std::declval<N>()));
+using allocate_free_function_result_t = decltype(allocate(std::declval<A>(), std::declval<N>()));
 
 template<class A, class N>
-using has_allocate_free_function = is_detected<allocate_free_function_t, A, N>;
+using has_allocate_free_function = is_detected<allocate_free_function_result_t, A, N>;
 
 
 // this is the type of allocate
@@ -101,6 +101,10 @@ const __device__ CUMEM_DETAIL_NAMESPACE::allocate_customization_point allocate;
 
 
 } // end anonymous namespace
+
+
+template<class A, class N>
+using allocate_result_t = decltype(CUMEM_NAMESPACE::allocate(std::declval<A>(), std::declval<N>()));
 
 
 CUMEM_NAMESPACE_CLOSE_BRACE

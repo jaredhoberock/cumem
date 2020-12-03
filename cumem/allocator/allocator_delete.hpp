@@ -35,6 +35,9 @@
 CUMEM_NAMESPACE_OPEN_BRACE
 
 
+// XXX allocator_delete deserves to be a CPO
+
+
 CUMEM_EXEC_CHECK_DISABLE
 template<class Alloc, class P>
 CUMEM_ANNOTATION
@@ -47,6 +50,10 @@ void allocator_delete(Alloc& alloc, P ptr)
   CUMEM_NAMESPACE::destroy(alloc_copy, ptr);
   CUMEM_NAMESPACE::deallocate(alloc_copy, ptr, 1);
 }
+
+
+template<class A, class P>
+using allocator_delete_result_t = decltype(CUMEM_NAMESPACE::allocator_delete(std::declval<A>(), std::declval<P>()));
 
 
 CUMEM_NAMESPACE_CLOSE_BRACE

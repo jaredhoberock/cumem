@@ -41,17 +41,17 @@ namespace CUMEM_DETAIL_NAMESPACE
 
 
 template<class A, class P, class N>
-using deallocate_member_function_t = decltype(std::declval<A>().deallocate(std::declval<P>(), std::declval<N>()));
+using deallocate_member_function_result_t = decltype(std::declval<A>().deallocate(std::declval<P>(), std::declval<N>()));
 
 template<class A, class P, class N>
-using has_deallocate_member_function = is_detected<deallocate_member_function_t, A, P, N>;
+using has_deallocate_member_function = is_detected<deallocate_member_function_result_t, A, P, N>;
 
 
 template<class A, class P, class N>
-using deallocate_free_function_t = decltype(deallocate(std::declval<A>(), std::declval<P>(), std::declval<N>()));
+using deallocate_free_function_result_t = decltype(deallocate(std::declval<A>(), std::declval<P>(), std::declval<N>()));
 
 template<class A, class P, class N>
-using has_deallocate_free_function = is_detected<deallocate_free_function_t, A, P, N>;
+using has_deallocate_free_function = is_detected<deallocate_free_function_result_t, A, P, N>;
 
 
 // this is the type of deallocate
@@ -103,6 +103,10 @@ const __device__ CUMEM_DETAIL_NAMESPACE::deallocate_customization_point dealloca
 
 
 } // end anonymous namespace
+
+
+template<class A, class P, class N>
+using deallocate_result_t = decltype(CUMEM_NAMESPACE::deallocate(std::declval<A>(), std::declval<P>(), std::declval<N>()));
 
 
 CUMEM_NAMESPACE_CLOSE_BRACE

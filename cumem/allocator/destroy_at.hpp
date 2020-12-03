@@ -42,17 +42,17 @@ namespace CUMEM_DETAIL_NAMESPACE
 
 
 template<class P>
-using destroy_at_member_function_t = decltype(std::declval<P>().destroy_at());
+using destroy_at_member_function_result_t = decltype(std::declval<P>().destroy_at());
 
 template<class P>
-using has_destroy_at_member_function = is_detected<destroy_at_member_function_t, P>;
+using has_destroy_at_member_function = is_detected<destroy_at_member_function_result_t, P>;
 
 
 template<class P>
-using destroy_at_free_function_t = decltype(destroy_at(std::declval<P>()));
+using destroy_at_free_function_result_t = decltype(destroy_at(std::declval<P>()));
 
 template<class P>
-using has_destroy_at_free_function = is_detected<destroy_at_free_function_t, P>;
+using has_destroy_at_free_function = is_detected<destroy_at_free_function_result_t, P>;
 
 
 // this is the type of destroy_at
@@ -116,8 +116,11 @@ const __device__ CUMEM_DETAIL_NAMESPACE::destroy_at_customization_point destroy_
 } // end anonymous namespace
 
 
+template<class P>
+using destroy_at_result_t = decltype(CUMEM_NAMESPACE::destroy_at(std::declval<P>()));
+
+
 CUMEM_NAMESPACE_CLOSE_BRACE
 
 #include "../detail/epilogue.hpp"
-
 

@@ -42,17 +42,17 @@ namespace CUMEM_DETAIL_NAMESPACE
 
 
 template<class P, class... Args>
-using construct_at_member_function_t = decltype(std::declval<P>().construct_at(std::declval<Args>()...));
+using construct_at_member_function_result_t = decltype(std::declval<P>().construct_at(std::declval<Args>()...));
 
 template<class P, class... Args>
-using has_construct_at_member_function = is_detected<construct_at_member_function_t, P, Args...>;
+using has_construct_at_member_function = is_detected<construct_at_member_function_result_t, P, Args...>;
 
 
 template<class P, class... Args>
-using construct_at_free_function_t = decltype(construct_at(std::declval<P>(), std::declval<Args>()...));
+using construct_at_free_function_result_t = decltype(construct_at(std::declval<P>(), std::declval<Args>()...));
 
 template<class P, class... Args>
-using has_construct_at_free_function = is_detected<construct_at_free_function_t, P, Args...>;
+using has_construct_at_free_function = is_detected<construct_at_free_function_result_t, P, Args...>;
 
 
 // this is the type of construct_at
@@ -117,6 +117,10 @@ const __device__ CUMEM_DETAIL_NAMESPACE::construct_at_customization_point constr
 
 
 } // end anonymous namespace
+
+
+template<class T, class... Args>
+using construct_at_result_t = decltype(CUMEM_NAMESPACE::construct_at(std::declval<T>(), std::declval<Args>()...));
 
 
 CUMEM_NAMESPACE_CLOSE_BRACE

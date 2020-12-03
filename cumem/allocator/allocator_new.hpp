@@ -35,14 +35,17 @@
 CUMEM_NAMESPACE_OPEN_BRACE
 
 
+// XXX allocator_new deserves to be a CPO
+
+
 template<class T, class Alloc>
-using allocator_new_t = typename std::allocator_traits<Alloc>::template rebind_traits<T>::pointer;
+using allocator_new_result_t = typename std::allocator_traits<Alloc>::template rebind_traits<T>::pointer;
 
 
 CUMEM_EXEC_CHECK_DISABLE
 template<class T, class Alloc, class... Args>
 CUMEM_ANNOTATION
-allocator_new_t<T,Alloc> allocator_new(Alloc& alloc, Args&&... args)
+allocator_new_result_t<T,Alloc> allocator_new(Alloc& alloc, Args&&... args)
 {
   using allocator_type = typename std::allocator_traits<Alloc>::template rebind_alloc<T>;
   allocator_type alloc_copy = alloc;
